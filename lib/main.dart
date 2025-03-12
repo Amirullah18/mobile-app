@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_1/about_page.dart';
+import 'package:flutter_project_1/contact_page.dart';
+import 'package:flutter_project_1/second_page.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +18,46 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Stateless widget',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: GridViewProduk(),
+      // home: GridViewProduk(),
+      // home: MainPage(),
+      home: HomePage(),
+      // contoh named route
+      // routes: {
+      //   '/' : (context) => HomePage(),
+      //   '/second' : (context) => SecondPage(), 
+      // },
+    );
+  }
+}
+class MainPage extends StatefulWidget{
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage>{
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [HomePage(), SecondPage(), About(), ContactPage()];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.pages), label: "Second Page"),
+          BottomNavigationBarItem(icon: Icon(Icons.description), label: "About"),
+          BottomNavigationBarItem(icon: Icon(Icons.contacts), label: "Contact",
+          ),
+        ],
+      ),
     );
   }
 }
@@ -163,22 +206,122 @@ class _GridViewProduk extends State<GridViewProduk> {
 class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
+    // return MouseRegion(
+    //   onEnter: (_) => debugPrint("Mouse masuk Header !"),
+    //   onExit: (_) => debugPrint("Mouse Keluar dari Header"),
+    //   onHover: (_) => debugPrint("Mouse bergerak di Header !"),
+    return GestureDetector(
+      onPanUpdate: (details){
+        if (details.delta.dx > 0) {
+          print("Geser ke Kanan Berhasil");
+        } else if (details.delta.dx < 0) {
+          print("Ke Kiri Berhasil");
+        }
+      },
+   child:  Container(
       padding: EdgeInsets.all(10),
       color: Colors.blue,
-      child: Center(
-        child: Text("Selamat Datang di Toko Kami",
+      width: 400,
+      // child: Center(
+      child: Column(
+        // child: text(
+        children: [
+        Text("Selamat Datang di Toko Kami",
           style: TextStyle(fontSize: 18, color: Colors.white,
           fontWeight: FontWeight.bold,
 
+          ),
         ),
+        SizedBox(height: 5),
+        //tombol dengan efek samping mengambang
+        // OutlinedButton(
+        ElevatedButton(
+          onPressed: () => _showPromoDialog(context),
+            // print("Tombol Sudah ditekan");
+  
+          child: Text("Lihat Promo"),
+        ),
+        SizedBox(height: 5),
+        TextButton(onPressed: () => _showPromoDialog(context),
+          // print("Teks button ditemukan");
+        
+        child: Text("Lihat Texs"),
+        ),
+        SizedBox(height: 5),
+        FloatingActionButton(
+          onPressed: (){
+            print("Floating ditekan");
+          },
+          child: Icon(Icons.add),
+          ),
+          SizedBox(height: 5),
+          GestureDetector(
+            onLongPress: (){
+              print("Tekan lama berhasil");
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Text(
+                "Tekan lama untuk lihat promo",
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 5),
+          InkWell(
+            onTap: () {
+              print("Tombol dengan efek ripple ditekan");
+            },
+            child: Container(
+              padding: EdgeInsets.all(12),
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(
+                  "Elevevated Button",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     ),
     );
   }
 }
 
+void _showPromoDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Promo spesial"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [Text("Dapatkan Diskon 50% untuk semua produk hari ini !"),
+          SizedBox(height: 10),
+          Image.network("https://images.unsplash.com/photo-1603789823099-c69b1819a269?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          width: 200,
+          height: 100,
+          fit: BoxFit.cover,
+          ),
+          ],
+        ),
+      );
+    },
+    );
+}
 class ProductCart extends StatelessWidget{
   final String name;
   final String price;
