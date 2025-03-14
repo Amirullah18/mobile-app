@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_1/counter_page.dart';
-import 'package:flutter_project_1/second_page.dart';
-import 'package:flutter_project_1/contact_page.dart';
-import 'package:flutter_project_1/about_page.dart';
-// import 'second_page.dart';
+import '../pages/home_pagetugas4.dart';
+import '../pages/second_pagetugas4.dart';
+import '../pages/about_pagetugas4.dart';
+import '../pages/contact_pagetugas4.dart';
 
-class HomePage extends StatelessWidget{
+
+class CostumeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Home Page")),
-      drawer: Drawer(
+    return Drawer(
         child: ListView(
           children: [
             DrawerHeader(
@@ -73,18 +71,16 @@ class HomePage extends StatelessWidget{
               leading: Icon(Icons.add),
               title: Text("Counter Page"),
               onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CounterPage()),
-                  );
+                // Navigator.pop(context);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => CounterPage()),
+                //   );
               },
             ),
-        ],
-        ),
-        ),
-      );
-   
-      
+          ],
+       ),
+     );
   }
 }
+
