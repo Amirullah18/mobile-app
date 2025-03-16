@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import '../data/product_data.dart';
+// import '../data/product_data.dart';
 import 'produk_cart.dart';
 
-class ProdukList extends StatefulWidget {
-  @override
-    _ProdukListState createState() => _ProdukListState();
-}
+// class ProdukList extends StatefulWidget {
+//   @override
+//     _ProdukListState createState() => _ProdukListState();
+// }
 
-class _ProdukListState extends State<ProdukList> {
-  List<Map<String, dynamic>> produk = List.from(produkData);
+// class _ProdukListState extends State<ProdukList> {
+class ProdukList extends StatelessWidget {
+  // List<Map<String, dynamic>> produk = List.from(produkData);
+  final List<Map<String, dynamic>> produk;
+
+  ProdukList({required this.produk});
   void toggleFavorite(int index){
-    setState(() {
-      produk[index]["isFavorite"] = !produk[index]["isFavorite"];
-    });
+    // setState(() {
+    //   produk[index]["isFavorite"] = !produk[index]["isFavorite"];
+    // });
+    produk[index]["isFavorite"] = !produk[index]["isFavorite"];
   }
 
   @override
@@ -22,10 +27,10 @@ class _ProdukListState extends State<ProdukList> {
               itemCount: produk.length,
               itemBuilder: (context, index){
                 return ProductCart(
-                  name: produk[index]["name"]!,
-                  price: produk[index]["price"]!,
+                  name: produk[index]["name"],
+                  price: produk[index]["price"],
                   isFavorite: produk[index]["isFavorite"],
-                  imageUrl: produk[index]["image"]!,
+                  imageUrl: produk[index]["image"],
                   onFavoritePressed: () => toggleFavorite(index),
                 );
               }

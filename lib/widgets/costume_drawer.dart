@@ -3,6 +3,7 @@ import '../pages/home_pagetugas4.dart';
 import '../pages/second_pagetugas4.dart';
 import '../pages/about_pagetugas4.dart';
 import '../pages/contact_pagetugas4.dart';
+import '../pages/props_page.dart';
 
 
 class CostumeDrawer extends StatelessWidget {
@@ -76,6 +77,17 @@ class CostumeDrawer extends StatelessWidget {
                 //   context,
                 //   MaterialPageRoute(builder: (context) => CounterPage()),
                 //   );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.pages),
+              title: Text("Props Page"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PropsPage()),
+                  );
               },
             ),
           ],
